@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "0564a88b-e0c5-47b0-8849-8ff1a4059b21",
+		"name": "Epic FHIR Patient",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34746041"
+	},
+	"item": [
+		{
+			"name": "SmartWellKnown",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/.well-known/smart-configuration",
+					"protocol": "https",
+					"host": [
+						"fhir",
+						"epic",
+						"com"
+					],
+					"path": [
+						"interconnect-fhir-oauth",
+						"api",
+						"FHIR",
+						"R4",
+						".well-known",
+						"smart-configuration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Patient",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Patient/erXuFYUfucBZaryVksYEcMg3",
+					"protocol": "https",
+					"host": [
+						"fhir",
+						"epic",
+						"com"
+					],
+					"path": [
+						"interconnect-fhir-oauth",
+						"api",
+						"FHIR",
+						"R4",
+						"Patient",
+						"erXuFYUfucBZaryVksYEcMg3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Observations Lab report",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Observation?patient=erXuFYUfucBZaryVksYEcMg3&category=laboratory&_count=100&_sort=-effectiveDateTime",
+					"protocol": "https",
+					"host": [
+						"fhir",
+						"epic",
+						"com"
+					],
+					"path": [
+						"interconnect-fhir-oauth",
+						"api",
+						"FHIR",
+						"R4",
+						"Observation"
+					],
+					"query": [
+						{
+							"key": "patient",
+							"value": "erXuFYUfucBZaryVksYEcMg3"
+						},
+						{
+							"key": "category",
+							"value": "laboratory"
+						},
+						{
+							"key": "_count",
+							"value": "100"
+						},
+						{
+							"key": "_sort",
+							"value": "-effectiveDateTime"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Specific Observation",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Observation/eyPMWgv2u2RUfsV4p1lLKuUtqyPs2-QNi2zKvbTsFYtRByc6B.cSi1iVU5V2HOpX23",
+					"protocol": "https",
+					"host": [
+						"fhir",
+						"epic",
+						"com"
+					],
+					"path": [
+						"interconnect-fhir-oauth",
+						"api",
+						"FHIR",
+						"R4",
+						"Observation",
+						"eyPMWgv2u2RUfsV4p1lLKuUtqyPs2-QNi2zKvbTsFYtRByc6B.cSi1iVU5V2HOpX23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search MedicationRequest",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/MedicationRequest?patient=erXuFYUfucBZaryVksYEcMg3&_count=100&_sort=-effectiveDateTime",
+					"protocol": "https",
+					"host": [
+						"fhir",
+						"epic",
+						"com"
+					],
+					"path": [
+						"interconnect-fhir-oauth",
+						"api",
+						"FHIR",
+						"R4",
+						"MedicationRequest"
+					],
+					"query": [
+						{
+							"key": "patient",
+							"value": "erXuFYUfucBZaryVksYEcMg3"
+						},
+						{
+							"key": "_count",
+							"value": "100"
+						},
+						{
+							"key": "_sort",
+							"value": "-effectiveDateTime"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Observations vital-signs",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/MedicationRequest?patient=erXuFYUfucBZaryVksYEcMg3&category=vital-signs&_count=100&_sort=-effectiveDateTime",
+					"protocol": "https",
+					"host": [
+						"fhir",
+						"epic",
+						"com"
+					],
+					"path": [
+						"interconnect-fhir-oauth",
+						"api",
+						"FHIR",
+						"R4",
+						"MedicationRequest"
+					],
+					"query": [
+						{
+							"key": "patient",
+							"value": "erXuFYUfucBZaryVksYEcMg3"
+						},
+						{
+							"key": "category",
+							"value": "vital-signs"
+						},
+						{
+							"key": "_count",
+							"value": "100"
+						},
+						{
+							"key": "_sort",
+							"value": "-effectiveDateTime"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "redirect_uri",
+				"value": "http://localhost:8000/callback",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "990e5d51-e8c1-4d70-8033-45fcbeeeaa40",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid fhirUser",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "epictoken",
+				"type": "string"
+			},
+			{
+				"key": "refreshRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "tokenRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "authRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "challengeAlgorithm",
+				"value": "S256",
+				"type": "string"
+			},
+			{
+				"key": "state",
+				"value": "2506",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "authorization_code_with_pkce",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "body",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
