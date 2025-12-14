@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - Health Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066CC;
+            --primary-dark: #004C99;
+            --primary-light: #E6F0FA;
+            --accent: #00A86B;
+            --accent-light: #ECFDF5;
+            --warning: #F59E0B;
+            --warning-light: #FEF3C7;
+            --danger: #DC2626;
+            --danger-light: #FEF2F2;
+            --text: #1A1A2E;
+            --text-light: #6B7280;
+            --bg: #F8FAFC;
+            --white: #FFFFFF;
+            --border: #E2E8F0;
+            --shadow: 0 4px 24px rgba(0, 102, 204, 0.08);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            color: var(--text);
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg);
+            border-radius: 10px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #D4E8FA 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-avatar svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary);
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background: var(--danger-light);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 102, 204, 0.25);
+        }
+
+        .welcome-text h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-text p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .welcome-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .welcome-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .tab:hover {
+            color: var(--primary);
+            background: var(--white);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            background: var(--white);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 1.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Demographics */
+        .demographics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .info-card {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .info-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-icon svg {
+            width: 22px;
+            height: 22px;
+            color: var(--primary);
+        }
+
+        .info-icon.accent {
+            background: var(--accent-light);
+        }
+
+        .info-icon.accent svg {
+            color: var(--accent);
+        }
+
+        .info-details label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .info-details span {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Data Cards - Expandable */
+        .data-card {
+            background: var(--bg);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .data-card:hover {
+            border-color: var(--primary-light);
+        }
+
+        .data-card.expanded {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+        }
+
+        .data-card-header {
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .data-card-header:hover {
+            background: var(--primary-light);
+        }
+
+        .data-card-main {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .data-card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .data-card-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary);
+        }
+
+        .data-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .data-card-title {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .data-card-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .data-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .data-card-value {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--primary);
+            text-align: right;
+        }
+
+        .data-card-date {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-align: right;
+        }
+
+        .expand-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .expand-icon svg {
+            width: 16px;
+            height: 16px;
+            color: var(--text-light);
+        }
+
+        .data-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .data-card-details {
+            display: none;
+            padding: 0 1.25rem 1.25rem;
+            border-top: 1px solid var(--border);
+            margin-top: 0;
+        }
+
+        .data-card.expanded .data-card-details {
+            display: block;
+            animation: slideDown 0.2s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding-top: 1rem;
+        }
+
+        .detail-item {
+            background: var(--white);
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+
+        .detail-item label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-item span {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-active, .status-final {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        .status-completed {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .status-stopped, .status-cancelled {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .status-on-hold, .status-draft {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        /* Interpretation badges */
+        .interp-normal {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        .interp-high, .interp-low, .interp-abnormal {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+            margin-top: 1rem;
+        }
+
+        .pagination-info {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .page-btn {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border);
+            background: var(--white);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            color: var(--text);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .page-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Error State */
+        .error-state {
+            text-align: center;
+            padding: 2rem;
+            background: var(--danger-light);
+            border-radius: 12px;
+            color: var(--danger);
+        }
+
+        /* Component indicators for blood pressure */
+        .components-list {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .component-badge {
+            background: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            .welcome-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .tabs {
+                overflow-x: auto;
+            }
+
+            .tab {
+                padding: 0.75rem 1rem;
+                white-space: nowrap;
+            }
+
+            .tab span {
+                display: none;
+            }
+
+            .data-card-meta {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 0.25rem;
+            }
+
+            .pagination {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+            </div>
+            <span class="logo-text">Health<span>Portal</span></span>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+                <span class="user-name" id="header-name">Loading...</span>
+            </div>
+            <a href="#" class="logout-btn" id="logout-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Logout
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="welcome-banner">
+            <div class="welcome-text">
+                <h1 id="welcome-name">Welcome!</h1>
+                <p>Access your health information securely</p>
+            </div>
+            <div class="welcome-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab active" data-tab="demographics">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    <span>Demographics</span>
+                </button>
+                <button class="tab" data-tab="vitals">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                    <span>Vital Signs</span>
+                </button>
+                <button class="tab" data-tab="labs">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 3h6v11a3 3 0 0 1-6 0V3z"/>
+                        <path d="M6 21h12"/>
+                        <path d="M12 18v3"/>
+                    </svg>
+                    <span>Lab Results</span>
+                </button>
+                <button class="tab" data-tab="medications">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10.5 20.5L3 13l8.5-8.5c1-1 2.5-1 3.5 0l5.5 5.5c1 1 1 2.5 0 3.5l-8.5 8.5c-1 1-2.5 1-3.5 0z"/>
+                        <path d="M7 7l10 10"/>
+                    </svg>
+                    <span>Medications</span>
+                </button>
+            </div>
+
+            <!-- Demographics Tab -->
+            <div class="tab-content active" id="demographics">
+                <div class="loading" id="demographics-loading">
+                    <div class="spinner"></div>
+                    <span>Loading patient information...</span>
+                </div>
+                <div class="demographics-grid" id="demographics-content" style="display: none;"></div>
+            </div>
+
+            <!-- Vitals Tab -->
+            <div class="tab-content" id="vitals">
+                <div class="loading" id="vitals-loading">
+                    <div class="spinner"></div>
+                    <span>Loading vital signs...</span>
+                </div>
+                <div id="vitals-content" style="display: none;">
+                    <div id="vitals-list"></div>
+                    <div class="pagination" id="vitals-pagination"></div>
+                </div>
+                <div class="empty-state" id="vitals-empty" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                    <p>No vital signs found</p>
+                </div>
+            </div>
+
+            <!-- Labs Tab -->
+            <div class="tab-content" id="labs">
+                <div class="loading" id="labs-loading">
+                    <div class="spinner"></div>
+                    <span>Loading lab results...</span>
+                </div>
+                <div id="labs-content" style="display: none;">
+                    <div id="labs-list"></div>
+                    <div class="pagination" id="labs-pagination"></div>
+                </div>
+                <div class="empty-state" id="labs-empty" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 3h6v11a3 3 0 0 1-6 0V3z"/>
+                        <path d="M6 21h12"/>
+                    </svg>
+                    <p>No lab results found</p>
+                </div>
+            </div>
+
+            <!-- Medications Tab -->
+            <div class="tab-content" id="medications">
+                <div class="loading" id="medications-loading">
+                    <div class="spinner"></div>
+                    <span>Loading medications...</span>
+                </div>
+                <div id="medications-content" style="display: none;">
+                    <div id="medications-list"></div>
+                    <div class="pagination" id="medications-pagination"></div>
+                </div>
+                <div class="empty-state" id="medications-empty" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10.5 20.5L3 13l8.5-8.5c1-1 2.5-1 3.5 0l5.5 5.5c1 1 1 2.5 0 3.5l-8.5 8.5c-1 1-2.5 1-3.5 0z"/>
+                    </svg>
+                    <p>No medications found</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Get session ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session');
+
+        if (!sessionId) {
+            window.location.href = '/?error=no_session';
+        }
+
+        // Pagination state
+        const paginationState = {
+            vitals: { page: 1, pageSize: 10, total: 0 },
+            labs: { page: 1, pageSize: 10, total: 0 },
+            medications: { page: 1, pageSize: 10, total: 0 }
+        };
+
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Logout handler
+        document.getElementById('logout-btn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            await fetch(`/api/logout/${sessionId}`);
+            window.location.href = '/';
+        });
+
+        // Toggle card expansion
+        function toggleCard(card) {
+            card.classList.toggle('expanded');
+        }
+
+        // Format date helper
+        function formatDate(dateString) {
+            if (!dateString || dateString === 'Unknown date') return 'N/A';
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch {
+                return dateString;
+            }
+        }
+
+        // Get status class
+        function getStatusClass(status) {
+            const s = status.toLowerCase();
+            if (s === 'active' || s === 'final') return 'status-active';
+            if (s === 'completed') return 'status-completed';
+            if (s === 'stopped' || s === 'cancelled') return 'status-stopped';
+            if (s === 'on-hold' || s === 'draft') return 'status-on-hold';
+            return 'status-active';
+        }
+
+        // Get interpretation class
+        function getInterpClass(interp) {
+            if (!interp) return 'interp-normal';
+            const i = interp.toLowerCase();
+            if (i.includes('normal') || i === 'n') return 'interp-normal';
+            if (i.includes('high') || i.includes('low') || i.includes('abnormal') || i === 'h' || i === 'l' || i === 'a') return 'interp-abnormal';
+            return 'interp-normal';
+        }
+
+        // Render pagination controls
+        function renderPagination(containerId, type, data) {
+            const container = document.getElementById(containerId);
+            const { page, page_size, total, total_pages } = data;
+            
+            if (total <= page_size) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const start = (page - 1) * page_size + 1;
+            const end = Math.min(page * page_size, total);
+
+            container.innerHTML = `
+                <div class="pagination-info">
+                    Showing ${start} - ${end} of ${total} results
+                </div>
+                <div class="pagination-controls">
+                    <button class="page-btn" onclick="goToPage('${type}', ${page - 1})" ${page <= 1 ? 'disabled' : ''}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6"/>
+                        </svg>
+                        Prev
+                    </button>
+                    <span style="padding: 0 0.5rem; font-size: 0.875rem; color: var(--text-light);">
+                        Page ${page} of ${total_pages}
+                    </span>
+                    <button class="page-btn" onclick="goToPage('${type}', ${page + 1})" ${page >= total_pages ? 'disabled' : ''}>
+                        Next
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </button>
+                </div>
+            `;
+        }
+
+        // Go to page
+        async function goToPage(type, page) {
+            if (page < 1) return;
+            paginationState[type].page = page;
+            
+            switch(type) {
+                case 'vitals':
+                    await loadVitals(page);
+                    break;
+                case 'labs':
+                    await loadLabs(page);
+                    break;
+                case 'medications':
+                    await loadMedications(page);
+                    break;
+            }
+        }
+
+        // Load patient demographics
+        async function loadPatient() {
+            try {
+                const response = await fetch(`/api/patient/${sessionId}`);
+                
+                if (response.status === 401) {
+                    window.location.href = '/?error=session_expired';
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                document.getElementById('header-name').textContent = data.name;
+                document.getElementById('welcome-name').textContent = `Welcome, ${data.name.split(' ')[0]}!`;
+                
+                const content = document.getElementById('demographics-content');
+                content.innerHTML = `
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="info-details">
+                            <label>Full Name</label>
+                            <span>${data.name}</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon accent">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 16v-4"/>
+                                <path d="M12 8h.01"/>
+                            </svg>
+                        </div>
+                        <div class="info-details">
+                            <label>Gender</label>
+                            <span>${data.gender}</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                        </div>
+                        <div class="info-details">
+                            <label>Date of Birth</label>
+                            <span>${formatDate(data.birthDate).split(',')[0]}</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon accent">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <div class="info-details">
+                            <label>Patient ID</label>
+                            <span>${data.identifier}</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="info-details">
+                            <label>Address</label>
+                            <span>${data.address}</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon accent">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                        </div>
+                        <div class="info-details">
+                            <label>Phone</label>
+                            <span>${data.phone}</span>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('demographics-loading').style.display = 'none';
+                content.style.display = 'grid';
+            } catch (error) {
+                console.error('Error loading patient:', error);
+                document.getElementById('demographics-loading').innerHTML = '<div class="error-state">Error loading patient data. Please try again.</div>';
+            }
+        }
+
+        // Load medications with pagination
+        async function loadMedications(page = 1) {
+            const loadingEl = document.getElementById('medications-loading');
+            const contentEl = document.getElementById('medications-content');
+            const emptyEl = document.getElementById('medications-empty');
+            const listEl = document.getElementById('medications-list');
+            
+            if (page === 1) {
+                loadingEl.style.display = 'flex';
+                contentEl.style.display = 'none';
+                emptyEl.style.display = 'none';
+            }
+
+            try {
+                const response = await fetch(`/api/medications/${sessionId}?page=${page}&page_size=10`);
+                const data = await response.json();
+                
+                loadingEl.style.display = 'none';
+                
+                if (data.medications && data.medications.length > 0) {
+                    listEl.innerHTML = data.medications.map(med => `
+                        <div class="data-card" onclick="toggleCard(this)">
+                            <div class="data-card-header">
+                                <div class="data-card-main">
+                                    <div class="data-card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M10.5 20.5L3 13l8.5-8.5c1-1 2.5-1 3.5 0l5.5 5.5c1 1 1 2.5 0 3.5l-8.5 8.5c-1 1-2.5 1-3.5 0z"/>
+                                            <path d="M7 7l10 10"/>
+                                        </svg>
+                                    </div>
+                                    <div class="data-card-info">
+                                        <div class="data-card-title">${med.name}</div>
+                                        <div class="data-card-subtitle">${med.dosage}</div>
+                                    </div>
+                                </div>
+                                <div class="data-card-meta">
+                                    <span class="status-badge ${getStatusClass(med.status)}">${med.status}</span>
+                                    <div class="data-card-date">${formatDate(med.authoredOn)}</div>
+                                </div>
+                                <div class="expand-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M6 9l6 6 6-6"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="data-card-details">
+                                <div class="detail-grid">
+                                    <div class="detail-item">
+                                        <label>Prescriber</label>
+                                        <span>${med.prescriber || 'N/A'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Intent</label>
+                                        <span>${med.intent || 'N/A'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Category</label>
+                                        <span>${med.category || 'N/A'}</span>
+                                    </div>
+                                    ${med.reason ? `
+                                    <div class="detail-item">
+                                        <label>Reason</label>
+                                        <span>${med.reason}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${med.dispenseInfo && Object.keys(med.dispenseInfo).length > 0 ? `
+                                    <div class="detail-item">
+                                        <label>Refills</label>
+                                        <span>${med.dispenseInfo.refills || 'N/A'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Quantity</label>
+                                        <span>${med.dispenseInfo.quantity || 'N/A'}</span>
+                                    </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    renderPagination('medications-pagination', 'medications', data);
+                    contentEl.style.display = 'block';
+                } else {
+                    emptyEl.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error loading medications:', error);
+                loadingEl.innerHTML = '<div class="error-state">Error loading medications</div>';
+            }
+        }
+
+        // Load labs with pagination
+        async function loadLabs(page = 1) {
+            const loadingEl = document.getElementById('labs-loading');
+            const contentEl = document.getElementById('labs-content');
+            const emptyEl = document.getElementById('labs-empty');
+            const listEl = document.getElementById('labs-list');
+            
+            if (page === 1) {
+                loadingEl.style.display = 'flex';
+                contentEl.style.display = 'none';
+                emptyEl.style.display = 'none';
+            }
+
+            try {
+                const response = await fetch(`/api/labs/${sessionId}?page=${page}&page_size=10`);
+                const data = await response.json();
+                
+                loadingEl.style.display = 'none';
+                
+                if (data.labs && data.labs.length > 0) {
+                    listEl.innerHTML = data.labs.map(lab => `
+                        <div class="data-card" onclick="toggleCard(this)">
+                            <div class="data-card-header">
+                                <div class="data-card-main">
+                                    <div class="data-card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 3h6v11a3 3 0 0 1-6 0V3z"/>
+                                            <path d="M6 21h12"/>
+                                            <path d="M12 18v3"/>
+                                        </svg>
+                                    </div>
+                                    <div class="data-card-info">
+                                        <div class="data-card-title">${lab.name}</div>
+                                        <div class="data-card-subtitle">Ref: ${lab.referenceRange}</div>
+                                    </div>
+                                </div>
+                                <div class="data-card-meta">
+                                    <div class="data-card-value">${lab.value}</div>
+                                    <span class="status-badge ${getInterpClass(lab.interpretation)}">${lab.interpretation || 'Normal'}</span>
+                                    <div class="data-card-date">${formatDate(lab.date)}</div>
+                                </div>
+                                <div class="expand-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M6 9l6 6 6-6"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="data-card-details">
+                                <div class="detail-grid">
+                                    <div class="detail-item">
+                                        <label>Test Code</label>
+                                        <span>${lab.code || 'N/A'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Status</label>
+                                        <span>${lab.status}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Reference Range</label>
+                                        <span>${lab.referenceRange}</span>
+                                    </div>
+                                    ${lab.performer ? `
+                                    <div class="detail-item">
+                                        <label>Performer</label>
+                                        <span>${lab.performer}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${lab.specimen ? `
+                                    <div class="detail-item">
+                                        <label>Specimen</label>
+                                        <span>${lab.specimen}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${lab.category ? `
+                                    <div class="detail-item">
+                                        <label>Category</label>
+                                        <span>${lab.category}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${lab.notes && lab.notes.length > 0 ? `
+                                    <div class="detail-item" style="grid-column: 1 / -1;">
+                                        <label>Notes</label>
+                                        <span>${lab.notes.join('; ')}</span>
+                                    </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    renderPagination('labs-pagination', 'labs', data);
+                    contentEl.style.display = 'block';
+                } else {
+                    emptyEl.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error loading labs:', error);
+                loadingEl.innerHTML = '<div class="error-state">Error loading lab results</div>';
+            }
+        }
+
+        // Load vitals with pagination
+        async function loadVitals(page = 1) {
+            const loadingEl = document.getElementById('vitals-loading');
+            const contentEl = document.getElementById('vitals-content');
+            const emptyEl = document.getElementById('vitals-empty');
+            const listEl = document.getElementById('vitals-list');
+            
+            if (page === 1) {
+                loadingEl.style.display = 'flex';
+                contentEl.style.display = 'none';
+                emptyEl.style.display = 'none';
+            }
+
+            try {
+                const response = await fetch(`/api/vitals/${sessionId}?page=${page}&page_size=10`);
+                const data = await response.json();
+                
+                loadingEl.style.display = 'none';
+                
+                if (data.vitals && data.vitals.length > 0) {
+                    listEl.innerHTML = data.vitals.map(vital => `
+                        <div class="data-card" onclick="toggleCard(this)">
+                            <div class="data-card-header">
+                                <div class="data-card-main">
+                                    <div class="data-card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                        </svg>
+                                    </div>
+                                    <div class="data-card-info">
+                                        <div class="data-card-title">${vital.name}</div>
+                                        <div class="data-card-subtitle">${vital.category || 'Vital Sign'}</div>
+                                    </div>
+                                </div>
+                                <div class="data-card-meta">
+                                    <div class="data-card-value">${vital.value}</div>
+                                    <span class="status-badge ${getStatusClass(vital.status)}">${vital.status}</span>
+                                    <div class="data-card-date">${formatDate(vital.date)}</div>
+                                </div>
+                                <div class="expand-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M6 9l6 6 6-6"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="data-card-details">
+                                <div class="detail-grid">
+                                    ${vital.loincCode ? `
+                                    <div class="detail-item">
+                                        <label>LOINC Code</label>
+                                        <span>${vital.loincCode}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${vital.interpretation ? `
+                                    <div class="detail-item">
+                                        <label>Interpretation</label>
+                                        <span>${vital.interpretation}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${vital.performer ? `
+                                    <div class="detail-item">
+                                        <label>Performer</label>
+                                        <span>${vital.performer}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${vital.bodySite ? `
+                                    <div class="detail-item">
+                                        <label>Body Site</label>
+                                        <span>${vital.bodySite}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${vital.method ? `
+                                    <div class="detail-item">
+                                        <label>Method</label>
+                                        <span>${vital.method}</span>
+                                    </div>
+                                    ` : ''}
+                                    ${vital.components && vital.components.length > 0 ? `
+                                    <div class="detail-item" style="grid-column: 1 / -1;">
+                                        <label>Components</label>
+                                        <div class="components-list">
+                                            ${vital.components.map(c => `
+                                                <span class="component-badge">${c.name}: ${c.value} ${c.unit}</span>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    renderPagination('vitals-pagination', 'vitals', data);
+                    contentEl.style.display = 'block';
+                } else {
+                    emptyEl.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error loading vitals:', error);
+                loadingEl.innerHTML = '<div class="error-state">Error loading vital signs</div>';
+            }
+        }
+
+        // Load all data on page load
+        loadPatient();
+        loadMedications();
+        loadLabs();
+        loadVitals();
+    </script>
+</body>
+</html>

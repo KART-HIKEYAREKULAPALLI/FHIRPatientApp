@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Patient Portal - Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066CC;
+            --primary-dark: #004C99;
+            --primary-light: #E6F0FA;
+            --accent: #00A86B;
+            --text: #1A1A2E;
+            --text-light: #6B7280;
+            --bg: #F8FAFC;
+            --white: #FFFFFF;
+            --border: #E2E8F0;
+            --shadow: 0 4px 24px rgba(0, 102, 204, 0.12);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Animated background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 102, 204, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 168, 107, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 102, 204, 0.04) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            padding: 3rem;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--border);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-light);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .card-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--primary);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .sign-in-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 102, 204, 0.3);
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .sign-in-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(0, 102, 204, 0.4);
+        }
+
+        .sign-in-btn:active {
+            transform: translateY(0);
+        }
+
+        .sign-in-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .feature-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--primary-light);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-icon svg {
+            width: 14px;
+            height: 14px;
+            color: var(--primary);
+        }
+
+        /* Error Message */
+        .error-banner {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            color: #DC2626;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            display: none;
+        }
+
+        .error-banner.show {
+            display: block;
+            animation: shake 0.5s ease-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Footer */
+        footer {
+            padding: 1.5rem 2rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Security Badge */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #F0FDF4;
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-top: 1.5rem;
+        }
+
+        .security-badge svg {
+            width: 14px;
+            height: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <header>
+        <div class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+            </div>
+            <span class="logo-text">Health<span>Portal</span></span>
+        </div>
+    </header>
+
+    <main>
+        <div class="card">
+            <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </div>
+
+            <div id="error-banner" class="error-banner"></div>
+
+            <h1>Welcome to Your Health Portal</h1>
+            <p class="subtitle">
+                Securely access your medical records, medications, lab results, and vital signs through Epic's FHIR platform.
+            </p>
+
+            <a href="/login" class="sign-in-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                    <polyline points="10 17 15 12 10 7"/>
+                    <line x1="15" y1="12" x2="3" y2="12"/>
+                </svg>
+                Sign in with Epic
+            </a>
+
+            <div class="security-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                HIPAA Compliant & Secure
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17 21 17 13 7 13 7 21"/>
+                            <polyline points="7 3 7 8 15 8"/>
+                        </svg>
+                    </div>
+                    <span>Medical Records</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <span>Medications</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/>
+                            <path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                            <path d="M4.5 10c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5S3 2.67 3 3.5v5c0 .83.67 1.5 1.5 1.5z"/>
+                            <path d="M3.5 10H5V8.5c0-.83-.67-1.5-1.5-1.5S2 7.67 2 8.5 2.67 10 3.5 10z"/>
+                            <path d="M14 14v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3"/>
+                            <path d="M21 14v3a4 4 0 0 1-4 4h-3"/>
+                        </svg>
+                    </div>
+                    <span>Lab Results</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                    </div>
+                    <span>Vital Signs</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        Powered by <a href="https://fhir.epic.com/" target="_blank">Epic FHIR® API</a> | HL7® FHIR® Standard
+    </footer>
+
+    <script>
+        // Check for error in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        if (error) {
+            const errorBanner = document.getElementById('error-banner');
+            let errorMessage = 'An error occurred during sign-in. Please try again.';
+            
+            switch(error) {
+                case 'access_denied':
+                    errorMessage = 'Access was denied. Please try again and authorize the application.';
+                    break;
+                case 'invalid_state':
+                    errorMessage = 'Session expired. Please try signing in again.';
+                    break;
+                case 'token_error':
+                    errorMessage = 'Authentication failed. Please try again.';
+                    break;
+            }
+            
+            errorBanner.textContent = errorMessage;
+            errorBanner.classList.add('show');
+        }
+    </script>
+</body>
+</html>
